@@ -308,4 +308,10 @@ th {
   padding: 3px;
 }
 
+#boot_list {
+  display: block;
+}
 
+#badge_list {
+  display: none;
+}

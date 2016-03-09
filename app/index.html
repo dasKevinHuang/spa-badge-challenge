@@ -1,26 +1,86 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" type="text/css" href="css/main.css">
-  <script src="js/app.js"></script>
-  <title>SPABadge</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script src="js/miniQuery.js"></script>
+<script src="js/handlebars.js"></script>
+<script src="js/app.js"></script>
+<title>SPABadge</title>
 </head>
 <body>
   <div class="container">
-    <div class="logo">
-      <h1> SPA Badge </h1>
-    </div>
-    <h1> SF Teachers </h1>
+    <div id="boot_list">
+      <div class="logo">
+        <h1> SPA Badge </h1>
+      </div>
+      <h1> SF Teachers </h1>
       <ul>
-        <li><a href="#">Anne</a></li>
-        <li><a href="#">Derek</a></li>
-        <li><a href="#">Hunter</li>
-        <li><a href="#">Jen</a></li>
-        <li><a href="#">Julian</a></li>
-        <li><a href="#">Sarah</a></li>
-        <li><a href="#">Shambhavi</a></li>
-        <li><a href="#">Walker</a></li>
+        <li><a class="name" href="#">Anne</a></li>
+        <li><a class="name" href="#">Derek</a></li>
+        <li><a class="name" href="#">Hunter</li>
+        <li><a class="name" href="#">Jen</a></li>
+        <li><a class="name" href="#">Julian</a></li>
+        <li><a class="name" href="#">Sarah</a></li>
+        <li><a class="name" href="#">Shambhavi</a></li>
+        <li><a class="name" href="#">Walker</a></li>
         <li><a href="sample-page.html">Sample Page</a></li>
       </ul>
+    </div>
+    <div id="badge_list">
+      <div class="logo">
+        <h1> SPA Badge </h1>
+      </div>
+      <h1>Words To Be Remembered By</h1>
+      <div id="show-user">
+
+        <div id="name_div"></div>
+        <div id="badge_div"></div>
+        <div class="add-badge">
+          <h3> Add a Badge: </h3>
+          <form id= "form" action="#">
+            <input type="hidden" name="user_id" value="5" />
+            <input id="text" type="text" name="content" />
+            <input id="button" type="image" src="img/add_button.png" alt="Add Slogan" />
+          </form>
+        </div>
+
+      </div>
+
+      <div class="nav">
+        <span class="nav-link">
+          <a id="home" href="spa-badge.html"> HOME </a>
+        </span>
+      </div>
+    </div>
   </div>
+  <script id="boot-template" type="text/x-handlebars-template">
+    <h2 class="boot-name">{{boot}}'s Badges</h2>
+  </script>
+  <script id="badge-template" type="text/x-handlebars-template">
+  <div id="{{badge_number}}" class="slogan">
+      <div class="body">{{badge_number}}) {{badge_name}}</div>
+      <div class="vote-on">
+        <form class="vote" action="#">
+          <input type="hidden" name="slogan_id" value=1>
+          <input type="hidden" name="vote_type" value="up">
+          <button class="up" type="submit" name="submit">
+            <img src="img/upvote.gif" alt="upvote_image" />
+          </button>
+        </form>
+      </div>
+      <div class="vote-on">
+        <form class="vote" action="#">
+          <input type="hidden" name="slogan_id" value=1>
+          <input type="hidden" name="vote_type" value="down">
+          <button class="down" type="submit" name="submit">
+            <img src="img/downvote.gif" alt="downvote_image" />
+          </button>
+        </form>
+      </div>
+
+      <div class="points">
+        {{badge_points}}
+      </div>
+    </div>
+  </script>
 </body>
 </html>

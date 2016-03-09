@@ -73,6 +73,10 @@ function updatePoints(e){
   .then(function(response) {
     var data = JSON.parse(response);
     $.select('#points_' + data.badge_id).innerHTML = data.badge_points;
+    var buttons = $.select('.vote_' + data.badge_id);
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].disabled = true;
+    }
   })
 }
 

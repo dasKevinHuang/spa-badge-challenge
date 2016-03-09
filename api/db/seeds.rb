@@ -13,6 +13,6 @@ boots = Boot.create([{name: "Anne"}, {name: "Derek"}, {name: "Hunter"}, {name: "
 
 Boot.all.each do |boot|
   10.times do
-    boot.badges << Badge.create({name: Faker::Hacker.noun, points: rand(1..100)})
+    boot.badges << Badge.create({name: Faker::Superhero.name, points: rand(1..100)})
   end
 end

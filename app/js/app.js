@@ -3,7 +3,8 @@ $.ready(function(){
     e.preventDefault();
     e.stopPropagation();
     id = e.target.innerHTML;
-    $.request({url: "http://localhost:3000/boots/" + id, method: 'GET'})
+    var method1 = "GET";
+    $.request({url: "http://localhost:3000/boots/" + id, method: method1})
     .then(function(response){
       var data = JSON.parse(response)
       $.hide("#boot_list");
@@ -24,7 +25,7 @@ $.ready(function(){
         div.innerHTML = html
         $.select("#badge_div").appendChild(div)
       }
-    voteListener();
+      voteListener();
     })
   })
   $.on("#home",'click', function(e) {
@@ -41,31 +42,43 @@ $.ready(function(){
     e.preventDefault();
     e.stopPropagation();
     var params = e['target']['1']['value'];
-    $.request({url: "http://localhost:3000/boots/" + id +"/badges?name=" + params, method: "POST"})
+    var method2 = "POST";
+    $.request({url: "http://localhost:3000/boots/" + id +"/badges?name=" + params, method: method2})
     .then(function(response) {
       var data = JSON.parse(response);
-      var div = document.createElement("div")
+      var div = document.createElement("div");
+      div.setAttribute('id', data.badge.id);
       source = $.select("#badge-template").innerHTML;
       template = Handlebars.compile(source);
-      context = { badge_number: data.badge_count, badge_name: data.badge.name, badge_points: data.badge.points }
+      context = { badge_number: data.badge_count, badge_name: data.badge.name, badge_points: data.badge.points, badge_id: data.badge.id }
       html = template(context)
       div.innerHTML = html
       $.select("#badge_div").appendChild(div)
       $.select("#text").value = "";
+      document.removeEventListener('submit', updatePoints);
       voteListener();
     })
   })
 })
 function voteListener(){
-  $.on(".vote",'submit', function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    var upDown = e['target']['1']['value'];
-    var badgeId = e.target.parentElement.parentElement.parentElement.id;
-    $.request({url: "http://localhost:3000/boots/" + id +"/badges/" + badgeId + "?upDown=" + upDown, method: "PUT"})
-    .then(function(response) {
-      var data = JSON.parse(response);
-      $.select('#points_' + data.badge_id).innerHTML = data.badge_points;
-    })
+  $.on(".vote",'submit',updatePoints)
+}
+
+function updatePoints(e){
+  e.preventDefault();
+  e.stopPropagation();
+  var upDown = e['target']['1']['value'];
+  var badgeId = e.target.parentElement.parentElement.parentElement.id;
+  $.request({url: "http://localhost:3000/boots/" + id +"/badges/" + badgeId + "?upDown=" + upDown, method: "PUT"})
+  .then(function(response) {
+    var data = JSON.parse(response);
+    $.select('#points_' + data.badge_id).innerHTML = data.badge_points;
   })
 }
+
+
+
+
+
+
+

@@ -5,3 +5,22 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+teachers = %w[Anne Derek Hunter Jen Julian Sarah Shambhavi Walker]
+
+
+Teacher.delete_all
+
+teachers.each do |t|
+  teacher_obj = Teacher.create!({ name: t })
+
+  3.times do |x|
+    Badge.create!( 
+      teacher_id: teacher_obj.id,
+      points: x,
+      title: "Title #{x}"
+      )
+  end
+
+end
+

@@ -5,3 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Boot.delete_all
+Badge.delete_all
+
+boots = Boot.create([{name: "Anne"}, {name: "Derek"}, {name: "Hunter"}, {name: "Jen"}, {name: "Julian"}, {name: "Sarah"}, {name: "Shambhavi"}, {name: "Walker"}])
+
+Boot.all.each do |boot|
+  10.times do
+    boot.badges << Badge.create({name: Faker::Hacker.noun, points: rand(1..100)})
+  end
+end
